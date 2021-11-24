@@ -1,0 +1,165 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+h1, h2, h3, h4, h5, span, p, label, a{
+  font-family: 'Kanit', sans-serif;
+}
+h1{
+  font-size: 18px;
+  margin: 0.8rem 0 1.68rem 0;
+}
+
+.carousel{
+  margin-bottom: 50px;
+}
+
+/*** Navbar ***/
+
+nav ul a.btn{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.modal .prefix{
+  width: 0em;
+}
+
+.modal .row{
+  margin-bottom: 0px;
+}
+
+.modal-close i.material-icons{
+  line-height: inherit;
+}
+
+.nav-wrapper .dropdown-content{
+  min-width: 170px;
+}
+
+/*** Main ***/
+
+.section{
+  padding-top: 4vw;
+  padding-bottom: 4vw;
+}
+
+.section h1{
+  font-size: 34px;
+}
+
+.section h2{
+  margin-top: 0px;
+}
+
+/*** Presentation ***/
+
+.student{
+  border-radius: 40px;
+}
+
+.student .card-title{
+  margin-top: 0px;
+}
+
+.student li{
+  margin-bottom: 5px;
+}
+
+.student img{
+  padding: 20px;
+  margin-top: 5px;
+}
+
+.student .card-content{
+  padding: 6px;
+}
+
+.student .card-action{
+  background-color: transparent;
+}
+
+.student .card-content i{
+  font-size: 24px;
+}
+
+.student .card-content h4{
+  font-size: 24px;
+}
+
+/*** Projects ***/
+
+#projects .collapsible-header h3{
+  -webkit-text-stroke: 1px black;
+  -webkit-text-fill-color: white;
+}
+
+#projects .collapsible-header{
+  min-height: 150px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#projects .collapsible .row{
+  margin-bottom: 0px;
+}
+
+#projects .collapsible .header-game{
+  background-image: url(../img/game_img.jpg);
+}
+
+#projects .collapsible .header-web{
+  background-image: url(../img/web.jpg);
+}
+
+#projects .collapsible .header-jam{
+  background-image: url(../img/game_jam.jpg);
+}
+
+/*** Label colors ***/
+.input-field label {
+ color: black;
+}
+
+.input-field input[type=text]:focus + label {
+ color: grey;
+}
+
+/*** Easter Egg ***/
+
+.easter-egg .secret{
+  position: fixed;
+  bottom: -30%;
+  left: -5%;
+  z-index: 2;
+  display: none;
+}
+
+.easter-egg .secret img{
+  max-height: 300px;
+}
+
+.easter-egg .finish{
+  left: 97%;
+  top: 40%;
+  z-index: 1;
+  max-height: 600px;
+}
+
+/*** Footer ***/
+
+.page-footer .btn-floating{
+  margin-left: 0px;
+}
+
+.page-footer .input-field label {
+ color: white;
+ font-size: 14px;
+}
