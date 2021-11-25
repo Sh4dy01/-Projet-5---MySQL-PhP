@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 25 nov. 2021 à 14:46
+-- Généré le : jeu. 25 nov. 2021 à 14:59
 -- Version du serveur :  8.0.23
 -- Version de PHP : 8.0.3
 
@@ -71,6 +71,21 @@ CREATE TABLE IF NOT EXISTS `img_carrousel` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `img_user`
+--
+
+DROP TABLE IF EXISTS `img_user`;
+CREATE TABLE IF NOT EXISTS `img_user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_user` int NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `img_alt` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `projet`
 --
 
@@ -95,8 +110,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` int NOT NULL AUTO_INCREMENT,
   `mail` varchar(99) NOT NULL,
   `password` varchar(35) NOT NULL,
-  `equipe_id` int NOT NULL,
-  `image` varchar(100) NOT NULL,
+  `id_equipe` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 COMMIT;
