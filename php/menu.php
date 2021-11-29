@@ -32,6 +32,9 @@
           </li>
         </ul></li>
         <li><a class="waves-effect waves-light btn orange modal-trigger" href="#contact">Contactez-nous</a></li>
+        <?php if(isset($_SESSION['user'])) {?>
+          <li><a class="waves-effect waves-light btn" href="php/logout.php"><i class="material-icons">logout</i></a></li>
+        <?php } ?>
       </ul>
     </div>
 
@@ -104,7 +107,58 @@
         </div>
       </div>
     </div>
-
+    <div id="login" class="modal container row center-align">
+      <form class="col s12" method="post" action="php/login.php">
+        <div class="modal-content black-text">
+          <h4 class="center-align">Connexion</h4>
+          <div class="row">
+            <div class="input-field col s6 m4 l4 offset-l1">
+              <input id="email" type='email' name='email'/>
+              <label for="email">Votre mail</label>
+            </div>
+            <div class="input-field col s6 m4 l4 offset-l2">
+              <input type='password' name='password'/>
+              <label for="password">Votre mot de passe</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="modal-close waves-effect waves-light blue btn center" type="submit" name="action">
+          <i class="material-icons right">send</i>Se connecter</button>
+        </div>
+      </form>
+    </div>
+    <div id="register" class="modal container row center-align">
+      <form class="col s12" method="post" action="php/register.php">
+        <div class="modal-content black-text">
+          <h4 class="center-align">Inscription</h4>
+          <div class="row center-align">
+            <div class="input-field col s6 m6 l6">
+              <input id="email" type='email' name='email' />
+              <label for="email">Votre mail</label>
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <input type='password' name='password' />
+              <label for="password">Votre mot de passe</label>
+            </div>
+          </div>
+          <div class="row center-align">
+            <div class="input-field col s6 m6 l6">
+              <input id="last_name" type='text' name='last_name' />
+              <label for="last_name">Nom</label>
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <input id='first_name' type="text" name='first_name' />
+              <label for="first_name">Prénom</label>
+            </div>
+          </div>
+        </div>
+      <div class="modal-footer">
+        <button class="modal-close waves-effect waves-light blue btn center" type="submit" name="action">
+        <i class="material-icons right">send</i>S'inscrire</button>
+      </div>
+      </form>
+    </div>
   </nav>
 </div>
 
