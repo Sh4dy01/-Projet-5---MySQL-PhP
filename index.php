@@ -52,7 +52,7 @@
                     </ul>
                   </li>
                 </ul></li>
-                <li><a class="waves-effect waves-light btn orange modal-trigger" href="#contact">Contactez-nous</a></li>
+                <li><a class="waves-effect waves-light btn orange modal-trigger" href="#contact">Contactez-nous</a></li>            
               </ul>
             </div>
 
