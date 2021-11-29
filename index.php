@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-  <?php require_once "config.php"; ?>
+  <?php require_once "php/config.php"; ?>
   <html lang="fr" dir="ltr">
     <head>
       <meta charset="utf-8"/>
@@ -20,49 +20,10 @@
 
       <!-- Navbar & SideNav -->
       <header>
-<<<<<<< HEAD
-        <div class="navbar-fixed">
-          <nav class="nav-wrapper orange lighten-2">
-            <div class="container">
-              <h1 class="brand-logo black-text">ProgGuys</h1>
-              <a class="sidenav-trigger" data-target="mobile-menu">
-                <i class="material-icons">menu</i>
-              </a>
-              <ul class="right hide-on-med-and-down">
-                <li><a href="index.html" class="waves-effect waves-light blue btn">Présentation</a></li>
-                <li><a class="dropdown-trigger waves-effect waves-light red btn" data-target="project-dropdown">Projets</a></li>
-                <!-- Project Dropdown Structure -->
-                <li><ul id='project-dropdown' class='dropdown-content'>
-                  <li>
-                    <div class="valign-wrapper black-text"><i class="material-icons prefix">groups</i><span>Game Jam</span></div>
-                    <ul>
-                      <li><a href="game-jam.html">Scientific Game Jam #3</a></li>
-                    </ul>
-                  </li>
-                  <li class="divider" tabindex="-1"></li>
-                  <li>
-                    <div class="valign-wrapper black-text"><i class="material-icons">videogame_asset</i><span>JEUX</span></div>
-                    <ul>
-                      <li><a href="puissance-4.html">Puissance 4</a></li>
-                    </ul>
-                  </li>
-                  <li class="divider" tabindex="-1"></li>
-                  <li>
-                    <div class="valign-wrapper"><i class="material-icons">public</i><span>Site Web</span></div>
-                    <ul>
-                    <li><a href="demacia.html">Demacia</a></li>
-                    </ul>
-                  </li>
-                </ul></li>
-                <li><a class="waves-effect waves-light btn orange modal-trigger" href="#contact">Contactez-nous</a></li>            
-              </ul>
-            </div>
-=======
         <?php
           require "menu.php";
         ?>
       </header>
->>>>>>> 04cbc923197b2b04794e7aa7e3e41a3a79e1dbc3
 
       <main id="main">
 
@@ -77,8 +38,8 @@
 
             foreach($data as $user){ ?>
             <div class="bloc_user">
-              <h4><?php echo $user['first_name']." ".$user['last_name'] ?></h4>
-              <span class="email"><?php echo $user['email'] ?></span>
+              <h4><?php echo $user['prenom']." ".$user['nom'] ?></h4>
+              <span class="email"><?php echo $user['mail'] ?></span>
             </div>
             <?php } ?>
 

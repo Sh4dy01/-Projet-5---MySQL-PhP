@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 25 nov. 2021 à 14:59
--- Version du serveur :  8.0.23
--- Version de PHP : 8.0.3
+-- Généré le : lun. 29 nov. 2021 à 14:30
+-- Version du serveur : 5.7.36
+-- Version de PHP : 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `carte`;
 CREATE TABLE IF NOT EXISTS `carte` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_projet` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_projet` int(11) NOT NULL,
   `image` varchar(100) NOT NULL,
   `titre` varchar(100) NOT NULL,
   `l_titre` varchar(30) NOT NULL,
@@ -47,11 +47,18 @@ CREATE TABLE IF NOT EXISTS `carte` (
 
 DROP TABLE IF EXISTS `equipe`;
 CREATE TABLE IF NOT EXISTS `equipe` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(100) NOT NULL,
   `description` varchar(500) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `equipe`
+--
+
+INSERT INTO `equipe` (`id`, `nom`, `description`) VALUES
+(1, 'ProgGuys', '2 Jeunes programmeurs fous');
 
 -- --------------------------------------------------------
 
@@ -61,10 +68,10 @@ CREATE TABLE IF NOT EXISTS `equipe` (
 
 DROP TABLE IF EXISTS `img_carrousel`;
 CREATE TABLE IF NOT EXISTS `img_carrousel` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `image` varchar(35) NOT NULL,
   `img_alt` varchar(200) NOT NULL,
-  `id_projet` int NOT NULL,
+  `id_projet` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -76,8 +83,8 @@ CREATE TABLE IF NOT EXISTS `img_carrousel` (
 
 DROP TABLE IF EXISTS `img_user`;
 CREATE TABLE IF NOT EXISTS `img_user` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_user` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
   `image` varchar(100) NOT NULL,
   `img_alt` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
@@ -91,13 +98,22 @@ CREATE TABLE IF NOT EXISTS `img_user` (
 
 DROP TABLE IF EXISTS `projet`;
 CREATE TABLE IF NOT EXISTS `projet` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `user` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
   `titre` varchar(50) NOT NULL,
   `desc` varchar(5000) NOT NULL,
-  `carous` tinyint NOT NULL DEFAULT '0',
+  `carous` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `projet`
+--
+
+INSERT INTO `projet` (`id`, `id_user`, `titre`, `desc`, `carous`) VALUES
+(1, 1, 'Scientific Game Jam #3', 'Pour but de tester mes compétences actuelles en programmation, j\'ai participé à ma première Game Jam à Lyon en distanciel.', 0),
+(2, 2, 'Projet #2 : Puissance 4 textuel', 'Réalisation d\'un Puissance 4 sous le langage de programmation C, sans interface graphique et dans un univers Linux.', 0),
+(3, 2, 'Projet #3 : HTML/CSS/SEO', 'Premier site pour découvrir les langages HTML/CSS et SEO sur l\'univers de Demacia appartenant au jeu League of Legends.', 0);
 
 -- --------------------------------------------------------
 
@@ -107,12 +123,21 @@ CREATE TABLE IF NOT EXISTS `projet` (
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `mail` varchar(99) NOT NULL,
-  `password` varchar(35) NOT NULL,
-  `id_equipe` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mail` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `prenom` varchar(100) NOT NULL,
+  `nom` varchar(100) NOT NULL,
+  `id_equipe` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`id`, `mail`, `password`, `prenom`, `nom`, `id_equipe`) VALUES
+(1, 'hmaestracci@gaming.tech', '9461c13dc268ca9542411b2ce1a59f692f66f2fd', 'Hugo', 'MAESTRACCI', 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
