@@ -281,7 +281,12 @@
                     <li>
                       <div class="collapsible-header"><i class="material-icons">help_outline</i>Qu'est-ce que c'est ?</div>
                       <div class="collapsible-body">
-                        <p>Baptiste rempli ici.</p>
+                        <p>L'objectif de ce site serait de créer un "Hub" sur
+                          lequel tout le monde pourrait ajouter ses projets et
+                          par extension il y aurait aussi des questions/réponses.
+                          Afin d'aider tous ceux en quêtes de réponses, nous
+                          avons crée ProgHub.
+                        </p>
                       </div>
                     </li>
                   </ul>
