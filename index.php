@@ -57,7 +57,7 @@
           <section class="container section grey lighten-4 z-depth-4" id="presentation">
             <!-- PHP pour récupérer les users appartenant à la même équipe de l'user login !-->
             <?php
-            $sql = "SELECT * FROM user INNER JOIN equipe ON equipe.id = user.id_equipe INNER JOIN img_user ON img_user.id_user = user.id WHERE equipe.id='".$_SESSION['user']['id']."';";
+            $sql = "SELECT image,img_alt,prenom,nom,parcours,description FROM user INNER JOIN equipe ON equipe.id = user.id_equipe INNER JOIN img_user ON img_user.id_user = user.id WHERE equipe.id='".$_SESSION['user']['id']."';";
             $pre = $pdo->prepare($sql);
             $pre->execute();
             $data = $pre->fetchAll(PDO::FETCH_ASSOC);?>
@@ -101,44 +101,51 @@
             <!-- PHP pour récupérer les projets appartenant à l'user login !-->
             <h2 class="center-align">Portfolio</h2>
             <ul class="collapsible popout">
-              <li>
-                <div class="collapsible-header hoverable header-jam valign-wrapper" style="background-image: url(../img/game_img.jpg);">
-                  <h3 class="container center-align white-text">GAME JAM</h3>
-                </div>
-                <div class="collapsible-body row">
+          <?php
+          $sql = "SELECT type, type_projet.nom, type_projet.image FROM projet INNER JOIN type_projet ON type_projet.id = projet.type WHERE id_user=2 GROUP BY type;";
+          $pre = $pdo->prepare($sql);
+          $pre->execute();
+          $data1 = $pre->fetchAll(PDO::FETCH_ASSOC);?>
 
-                  <?php
-                    $sql = "SELECT * FROM projet WHERE id_user='".$_SESSION['user']['id']."' AND type='1';";
-                    $pre = $pdo->prepare($sql);
-                    $pre->execute();
-                    $data = $pre->fetchAll(PDO::FETCH_ASSOC);
-                    foreach ($data as $project) { ?>
+          <?php foreach ($data1 as $type){ ?>
+            <li>
+              <div class="collapsible-header hoverable header-jam valign-wrapper" style="background-image: url(<?php echo $type['image'] ?>);">
+                <h3 class="container center-align white-text"><?php echo $type['nom'] ?></h3>
+              </div>
+              <div class="collapsible-body row">
 
-                    <div class="col s12 m12 l6">
-                      <div class="card hoverable">
-                        <div class="card-image">
-                          <img class="responsive-img" src="<?php echo $project['image'] ?>" alt="<?php echo $project['image_alt'] ?>">
-                        </div>
-                        <div class="card-content">
-                          <h5><?php echo $project['titre'] ?></h5>
-                          <p><?php echo $project['desc'] ?></p>
-                        </div>
-                        <div class="card-action">
-                          <div class="row valign-wrapper">
-                            <a class="col s4 m4 l4" href="game-jam.php">Y aller</a>
-                            <div class="right col s8 m8 l8">
-                              <div class="right chip">
-                                <img src="img/hugo_s.jpg" alt="Contact Person hugo maestracci">
-                                Hugo
-                              </div>
+                <?php
+                  $sql = "SELECT * FROM projet WHERE id_user='".$_SESSION['user']['id']."' AND type='1';";
+                  $pre = $pdo->prepare($sql);
+                  $pre->execute();
+                  $data2 = $pre->fetchAll(PDO::FETCH_ASSOC);
+                  foreach ($data2 as $project) { ?>
+
+                  <div class="col s12 m12 l6">
+                    <div class="card hoverable">
+                      <div class="card-image">
+                        <img class="responsive-img" src="<?php echo $project['image'] ?>" alt="<?php echo $project['image_alt'] ?>">
+                      </div>
+                      <div class="card-content">
+                        <h5><?php echo $project['titre'] ?></h5>
+                        <p><?php echo $project['desc'] ?></p>
+                      </div>
+                      <div class="card-action">
+                        <div class="row valign-wrapper">
+                          <a class="col s4 m4 l4" href="game-jam.php">Y aller</a>
+                          <div class="right col s8 m8 l8">
+                            <div class="right chip">
+                              <img src="img/hugo_s.jpg" alt="Contact Person hugo maestracci">
+                              Hugo
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  <?php } ?>
-                </div>
-              </li>
+                  </div>
+                <?php } ?>
+              </div>
+            </li>
               <li>
                 <div class="collapsible-header hoverable header-game valign-wrapper">
                   <h3 class="container center-align white-text">JEUX</h3>

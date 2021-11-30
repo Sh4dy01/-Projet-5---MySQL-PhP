@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 29 nov. 2021 à 23:04
+-- Généré le : mar. 30 nov. 2021 à 17:46
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -174,6 +174,29 @@ INSERT INTO `réseaux` (`id`, `lien`, `id_user`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `type_projet`
+--
+
+DROP TABLE IF EXISTS `type_projet`;
+CREATE TABLE IF NOT EXISTS `type_projet` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(50) NOT NULL,
+  `image` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `type_projet`
+--
+
+INSERT INTO `type_projet` (`id`, `nom`, `image`) VALUES
+(1, 'Game Jam', 'img/game_jam.jpg'),
+(2, 'Jeux', 'img/game_img.jpg'),
+(3, 'Site WEB', 'img/web.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `user`
 --
 
@@ -185,9 +208,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   `prenom` varchar(100) NOT NULL,
   `nom` varchar(100) NOT NULL,
   `parcours` text,
-  `id_equipe` int(11) NOT NULL,
+  `id_equipe` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user`
@@ -195,7 +218,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `email`, `password`, `prenom`, `nom`, `parcours`, `id_equipe`) VALUES
 (1, 'hmaestracci@gaming.tech', 'b7a6d580fa233088b213d9cd1cbb7e1145f7d64a', 'Hugo', 'MAESTRACCI', '<li><span>Etudiant en <a href=\"https://gaming.tech/\" target=\"_blank\" rel=\"external nofollow\">G-TECH 1</a> au Gaming Campus de Lyon</span></li>\r\n                    <li><span>Anciennement :</span><br>\r\n                      <ul>\r\n                        <li><span>- Serveur à l\'Instant Gourmand</span></li>\r\n                        <li><span>- 1 an en License informatique à TOULON</span></li>\r\n                        <li><span>- BAC STI2D option Système d\'Information et Numérique</span></li>\r\n                      </ul>\r\n                    </li>\r\n                    <li><blockquote class=\"center-align\">\"Je suis rentré au Gaming Campus dans le seul but d\'atteindre mon rêve, qui est d\'avoir les compétences nécessaires pour réaliser mes projets dans le monde du jeu-vidéo.\"</blockquote></li>', 1),
-(2, 'bmillan@gaming.tech', 'cf49f9d210982c802742be8bcfafbf4a3d1a205f', 'Baptiste', 'MILLAN', '<li><span>Etudiant en <a href=\"https://gaming.tech/\" target=\"_blank\" rel=\"external nofollow\">G-TECH 1</a> au Gaming Campus de Lyon</span></li>\r\n                    <li><span>Anciennement :</span><br>\r\n                      <ul>\r\n                        <li><span>- BAC S au Lycée Français de Séoul</span></li>\r\n                        <li><span>- DUT GMP à Rennes</span></li>\r\n                      </ul>\r\n                    </li>\r\n                    <li><blockquote class=\"center-align\">\"Je suis très content dans cette filière et même si je ne connaissais jusqu\'alors rien en programmation, j\'avance et tout le monde se serre les coudes\"</blockquote></li>', 1);
+(2, 'bmillan@gaming.tech', 'cf49f9d210982c802742be8bcfafbf4a3d1a205f', 'Baptiste', 'MILLAN', '<li><span>Etudiant en <a href=\"https://gaming.tech/\" target=\"_blank\" rel=\"external nofollow\">G-TECH 1</a> au Gaming Campus de Lyon</span></li>\r\n                    <li><span>Anciennement :</span><br>\r\n                      <ul>\r\n                        <li><span>- BAC S au Lycée Français de Séoul</span></li>\r\n                        <li><span>- DUT GMP à Rennes</span></li>\r\n                      </ul>\r\n                    </li>\r\n                    <li><blockquote class=\"center-align\">\"Je suis très content dans cette filière et même si je ne connaissais jusqu\'alors rien en programmation, j\'avance et tout le monde se serre les coudes\"</blockquote></li>', 1),
+(3, 'jm@aulas.fr', '8cb2237d0679ca88db6464eac60da96345513964', 'JM', 'Aulas', NULL, 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
