@@ -62,6 +62,11 @@
             $pre->execute();
             $data = $pre->fetchAll(PDO::FETCH_ASSOC);?>
 
+            <?php if (is_null($data)){ ?>
+              <div class="center-align">
+                <h2>Vous n'avez pas rejoins d'équipe</h2>
+              </div>
+            <?php }else{ ?>
             <div class="center-align">
               <h2>Votre équipe</h2>
               <i><?php echo $user['description']?></i>
@@ -88,7 +93,7 @@
                 </div>
               </div>
             </div>
-          <?php } ?>
+          <?php }} ?>
           </section>
 
           <!-- Projects !-->
@@ -97,7 +102,7 @@
             <h2 class="center-align">Portfolio</h2>
             <ul class="collapsible popout">
               <li>
-                <div class="collapsible-header hoverable header-jam valign-wrapper">
+                <div class="collapsible-header hoverable header-jam valign-wrapper" style="background-image: url(../img/game_img.jpg);">
                   <h3 class="container center-align white-text">GAME JAM</h3>
                 </div>
                 <div class="collapsible-body row">
