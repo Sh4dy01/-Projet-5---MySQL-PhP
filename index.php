@@ -214,8 +214,17 @@
           <section class="container section grey lighten-4 z-depth-4" id="projects">
             <div class="center-align">
               <h2>Mon Portfolio</h2>
+              <div class="input-field col s12">
+                <select>
+                  <option value="" selected>Choose your option</option>
+                  <option value="1">Option 1</option>
+                  <option value="2">Option 2</option>
+                  <option value="3">Option 3</option>
+                </select>
+                <label>Materialize Select</label>
+              </div>
               <ul>
-                <li><button data-target="add_project" class="btn blue modal-trigger"><i class="material-icons">add</i></button></li>
+                <li><button data-target="add_project" class="btn blue modal-trigger"><i class="material-icons">add</i>projet</button></li>
               </ul>
             </div>
 
@@ -289,12 +298,12 @@
               <h2>Notre Portfolio</h2>
             </div>
 
-            <?php if (empty($team_type_project)){?>
+            <?php if ($_SESSION['user']['id_equipe'] == 0){?>
               <div class="center-align container">
-                <span>Votre équipe n'a pas encore publié de projet.</span>
+                <span>Rejoignez une équipe pour voir leur projet.</span>
               </div>
             <?php }else{ ?>
-            <ul class="collapsible popout">
+              <ul class="collapsible popout">
               <?php foreach ($team_type_project as $type){ ?>
                 <li>
                   <div class="collapsible-header hoverable header-jam valign-wrapper" style="background-image: url(<?php echo $type['image'] ?>);">
@@ -335,7 +344,7 @@
                 </li>
               <?php } ?>
             </ul>
-          <?php } ?>
+            <?php } ?>
           </section>
 
         <?php }else{ ?>

@@ -1,6 +1,7 @@
 $(document).ready(function(){
   $('.modal').modal();
   $('.tabs').tabs();
+  $('select').formSelect();
   $('.sidenav').sidenav();
   $('.dropdown-trigger').dropdown();
   $('input#input_text, textarea#textarea2, input#secret_text').characterCounter();

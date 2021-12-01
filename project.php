@@ -161,20 +161,28 @@
         $sql = "SELECT * FROM projet WHERE id='".$_GET['id']."';";
         $pre = $pdo->prepare($sql);
         $pre->execute();
-        $dataProject = current($pre->fetchAll(PDO::FETCH_ASSOC));?>
+        $dataProject = current($pre->fetchAll(PDO::FETCH_ASSOC));
+
+        $sql = "SELECT * FROM type_projet ORDER BY id";
+        $pre = $pdo->prepare($sql);
+        $pre->execute();
+        $types = $pre->fetchAll(PDO::FETCH_ASSOC);?>
 
         <div class="modal-content">
           <h4>Edition du projet</h4>
-          <ul>
-            <form  action="php/admin_send_edit_project.php?id=<?php echo $dataProject['id'] ?>" method="post">
+          <form  action="php/admin_send_edit_project.php?id=<?php echo $dataProject['id'] ?>" method="post">
+            <ul>
               <li><span>Titre : </span><input id="titre" type="text" name="titre" value="<?php echo $dataProject['titre'] ?>"/></li>
               <li><span>Description : </span><input id="desc" type="text" name="desc" value="<?php echo $dataProject['description'] ?>"/></li>
               <li></li>
-              <li class="row">
-                <button class="waves-effect waves-light blue btn green" type="submit" name="action"><i class="material-icons">done</i></button>
+              <li>
+                
               </li>
-            </form>
-          </ul>
+              <li class="row">
+                <button class="waves-effect waves-light blue btn right green" type="submit" name="action"><i class="material-icons">done</i></button>
+              </li>
+            </ul>
+          </form>
         </div>
         <div class="modal-footer">
           <a class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
