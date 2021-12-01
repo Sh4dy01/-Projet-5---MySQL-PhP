@@ -45,8 +45,10 @@
                       <h3 class="card-title activator grey-text text-darken-4"><?php echo $card['titre'] ?></h3>
                     </div>
                     <div class="col l3 right-align">
-                      <button class="waves-effect waves-light blue btn orange modal-trigger" data-target="admin_edit_card_id=<?php echo $card['id'] ?>"><i class="material-icons">construction</i></button>
-                      <button class="waves-effect waves-light btn red modal-trigger" data-target="admin_delete_card_id=<?php echo $card['id'] ?>"><i class="material-icons">clear</i></button>
+                      <?php if ($_SESSION['user']['privileges']==1 || $_SESSION['user']['id']==$project['id_user']): ?>
+                        <button class="waves-effect waves-light blue btn orange modal-trigger" data-target="admin_edit_card_id=<?php echo $card['id'] ?>"><i class="material-icons">construction</i></button>
+                        <button class="waves-effect waves-light btn red modal-trigger" data-target="admin_delete_card_id=<?php echo $card['id'] ?>"><i class="material-icons">clear</i></button>
+                      <?php endif; ?>
                     </div>
                   </div>
                   <div class="card-reveal">
@@ -59,44 +61,47 @@
                   </div>
                 </div>
               </div>
-              <div id="admin_edit_card_id=<?php echo $card['id'] ?>" class="modal">
-                <?php
-                $sql = "SELECT * FROM carte WHERE id='".$card['id']."';";
-                $pre = $pdo->prepare($sql);
-                $pre->execute();
-                $dataCard = current($pre->fetchAll(PDO::FETCH_ASSOC));?>
+              <?php if ($_SESSION['user']['privileges']==1 || $_SESSION['user']['id']==$project['id_user']): ?>
+                <div id="admin_edit_card_id=<?php echo $card['id'] ?>" class="modal">
+                  <?php
+                  $sql = "SELECT * FROM carte WHERE id='".$card['id']."';";
+                  $pre = $pdo->prepare($sql);
+                  $pre->execute();
+                  $dataCard = current($pre->fetchAll(PDO::FETCH_ASSOC));?>
 
-                <div class="modal-content">
-                  <h4>Edition de la carte</h4>
-                  <ul>
-                    <form action="php/admin_send_edit_card.php?id=<?php echo $dataCard['id_projet'] ?>&card=<?php echo $card['id'] ?>" method="post">
-                      <li><span>Titre : </span><input id="titre" type="text" name="titre" value="<?php echo $dataCard['titre'] ?>"/></li>
-                      <li><span>Sous-titre : </span><input id="l_titre" type="text" name="l_titre" value="<?php echo $dataCard['l_titre'] ?>"/></li>
-                      <li><span>Texte : </span><input id="texte" type="text" name="texte" value="<?php echo $dataCard['texte'] ?>"/></li>
-                      <li><span>Notation : </span><input id="notation" type="text" name="notation" value="<?php echo $dataCard['notation'] ?>"/></li>
-                      <li></li>
-                      <li class="row">
-                        <button class="waves-effect waves-light blue btn green" type="submit" name="action">VALIDER</button>
-                      </li>
+                  <div class="modal-content">
+                    <h4>Edition de la carte</h4>
+                    <ul>
+                      <form action="php/admin_send_edit_card.php?id=<?php echo $dataCard['id_projet'] ?>&card=<?php echo $card['id'] ?>" method="post">
+                        <li><span>Titre : </span><input id="titre" type="text" name="titre" value="<?php echo $dataCard['titre'] ?>"/></li>
+                        <li><span>Sous-titre : </span><input id="l_titre" type="text" name="l_titre" value="<?php echo $dataCard['l_titre'] ?>"/></li>
+                        <li><span>Texte : </span><input id="texte" type="text" name="texte" value="<?php echo $dataCard['texte'] ?>"/></li>
+                        <li><span>Notation : </span><input id="notation" type="text" name="notation" value="<?php echo $dataCard['notation'] ?>"/></li>
+                        <li></li>
+                        <li class="row">
+                          <button class="waves-effect waves-light blue btn green" type="submit" name="action">VALIDER</button>
+                        </li>
+                      </form>
+                    </ul>
+                  </div>
+                  <div class="modal-footer">
+                    <a class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
+                  </div>
+                </div>
+                <div id="admin_delete_card_id=<?php echo $card['id'] ?>" class="modal">
+                  <div class="modal-content center-align">
+                    <h4>AVERTISSEMENT</h4>
+                    <p>Cette action est irréversible.</p>
+                    <form action="php/admin_delete_card.php?id=<?php echo $dataCard['id_projet'] ?>&card=<?php echo $card['id'] ?>" method="post">
+                      <button class="waves-effect waves-light btn red" type="submit" name="action">CONFIRMER LA SUPPRESSION</button>
                     </form>
-                  </ul>
+                  </div>
+                  <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
+                  </div>
                 </div>
-                <div class="modal-footer">
-                  <a href="#!" class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
-                </div>
-              </div>
-              <div id="admin_delete_card_id=<?php echo $card['id'] ?>" class="modal">
-                <div class="modal-content center-align">
-                  <h4>AVERTISSEMENT</h4>
-                  <p>Cette action est irréversible.</p>
-                  <form action="php/admin_delete_card.php?id=<?php echo $dataCard['id_projet'] ?>&card=<?php echo $card['id'] ?>" method="post">
-                    <button class="waves-effect waves-light btn red" type="submit" name="action">CONFIRMER LA SUPPRESSION</button>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <a href="#!" class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
-                </div>
-              </div>
+              <?php endif; ?>
+
             <?php } ?>
           </div>
           <?php if ($project['carous']==1){
@@ -126,14 +131,14 @@
 
         </section>
 
-        <?php if ($_SESSION['user']['privileges']==1): ?>
+        <?php if ($_SESSION['user']['privileges']==1 || $_SESSION['user']['id']==$project['id_user']): ?>
           <section class="gestion container">
             <div class="container center-align">
               <h3>Gestion du projet</h3>
-              <ul class="inline">
-                <li><button data-target="admin_add_card" class="btn blue modal-trigger">AJOUT DE CARTE</button></li>
-                <li><button data-target="admin_edit_project" class="btn orange modal-trigger">MODIFIER LES INFORMATIONS</button></li>
-                <li><button data-target="admin_delete_project" class="btn red modal-trigger">SUPPRESSION</button></li>
+              <ul class="inline ">
+                <li><button data-target="admin_add_card" class="btn blue modal-trigger"><i class="material-icons">add</i>CARTE</button></li>
+                <li><button data-target="admin_edit_project" class="btn orange modal-trigger"><i class="material-icons">construction</i></button></li>
+                <li><button data-target="admin_delete_project" class="btn red modal-trigger"><i class="material-icons">delete</i></button></li>
               </ul>
             </div>
           </section>
@@ -172,7 +177,7 @@
           </ul>
         </div>
         <div class="modal-footer">
-          <a href="#!" class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
+          <a class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
         </div>
       </div>
       <div id="admin_add_card" class="modal">
@@ -196,8 +201,10 @@
         </div>
       </div>
       <div id="admin_delete_project" class="modal">
-        <div class="modal-content">
+        <div class="modal-content center-align">
           <h4>AVERTISSEMENT</h4>
+          <span>Êtes-vous sûr de supprimer ce projet ?</span>
+          <span>Cette action est irréversible.</span>
           <ul>
             <form action="php/admin_delete_project.php?id=<?php echo $project['id'] ?>" method="post">
               <li class="row">

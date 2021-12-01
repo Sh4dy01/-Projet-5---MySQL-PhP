@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 01 déc. 2021 à 01:03
--- Version du serveur : 5.7.36
--- Version de PHP : 7.4.26
+-- Généré le : mer. 01 déc. 2021 à 11:50
+-- Version du serveur :  5.7.31
+-- Version de PHP : 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `carte` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_projet` int(11) NOT NULL,
   `image` varchar(100) NOT NULL,
+  `image_alt` varchar(500) NOT NULL,
   `titre` varchar(100) NOT NULL,
   `l_titre` varchar(100) NOT NULL,
   `texte` text NOT NULL,
@@ -43,16 +44,16 @@ CREATE TABLE IF NOT EXISTS `carte` (
 -- Déchargement des données de la table `carte`
 --
 
-INSERT INTO `carte` (`id`, `id_projet`, `image`, `titre`, `l_titre`, `texte`, `notation`) VALUES
-(1, 1, 'img/th.jpg', 'Introduction', 'Le challenge', '<p>Créer son premier jeu en 48H n\'est pas chose facile, heureusement j\'ai eu la chance de faire partie d\'une équipe formidable où la <b>communication</b> et <b>la bonne ambiance</b> furent au rendez-vous.</p>', '<li><span>Jour 1 : Brainstorming avec l\'équipe et répartition des tâches</span></li>\r\n                    <li><span>Jour 2 : Programmation avec mon coéquipier</span></li>\r\n                    <li><span>Jour 3 : Rush final</span></li>'),
-(2, 2, 'img/p4_1.png', 'Mission', 'Créer un puissance 4 textuel', '<p>Pour notre deuxieme projet au nous devions créer un puissance 4 à l\'aide du langage C et de github que nous devions se familiariser pour notre futur métier', '<p>Nous devions le réaliser dans un environnement Linux\r\n                  avec le système d\'exploitation Debian et apprendre à utiliser emacs, gcc ainsi que les commandes bash.</p>'),
-(3, 3, 'img/demacia-silvermere.jpg', 'Mission', 'Créer un site web', '<p class=\"center-align\">Lors de la semaine du 1er novembre, nous devions créer un site web sur un jeu de notre\r\n                  choix.<br><br></p>', '<p>Accompagné de mon camarade Lucas VOCANSON nous avons\r\n                  choisi League of Legends, et plus précisement la région de\r\n                  Demacia que nous avons décidé de présenter.\r\n                  <br>\r\n                  Nous avons dû suivre les instructions d\'un cahier des charges\r\n                  afin de réussir notre site web. Le SEO a aussi été abordé lors\r\n                  de ce projet, nous comprenons maintenant comment l\'utiliser\r\n                  et à quel point il est important.</p>'),
-(4, 1, 'img/game_1.jpg', 'Le jeu', 'T\'as déjà regardé ta vulve dans un miroir ?', '<p>Un couple joue tranquillement à un RPG érotique,  et le jeu suscite des discussions autour de leur relation et de la sexualité. On comprend qu\'ielles avaient prévu de se filmer en train de faire l\'amour mais... ielles ont été trop stressé.e.s et ont choisi de se détendre en allumant la console.</p>', '<blockquote><i>Notre chercheuse avait une thèse sur la sexualité dans les jeu-vidéos durant les années 80 et pour cela nous avons incorporer un j-rpg pixélisé dans notre jeu.</i></blockquote>'),
-(5, 1, 'img/game_2.jpg', 'Le développement', 'Unity & C#', '<p>Ayant de bonnes connaissances en C# et un bon professeur je n\'étais pas perdu dans la masse de travail à faire.<br>\r\n                  La communication avec GIT fut simple et efficace grâce à mon précédent projet scolaire qui m\'a apporté de grandes bases.\r\n                  </p>', '<span>Mes tâches étaient de :</span>\r\n                  <ul>\r\n                    <li>- Créer des objets scriptés \'tours\' pour faire avancer le jeu, un moyen rapide et efficace pour faire un jeu en 48H</li>\r\n                    <li>- Importer tous les assets dans Unity et les relier dans les scriptes</li>\r\n                    <li>- Réaliser les différentes scènes du jeu (titre/principale/crédit)</li>\r\n                    <li>- Faire les animations sous Unity</li>\r\n                    <li>- Fixer les petits bugs</li>\r\n                  </ul>'),
-(6, 1, 'img/game_1.jpg', 'Conclusion', 'L\'apport', '<p>Avant la Game Jam j\'étais très inquiet sur ce que je pourrais apporter à l\'équipe pour le développement de jeu, mais grâce à mon coéquipier qui a su me mettre en confiance et des sessions intenses de programmations, j\'ai pû faire de cette première fois une réussite.</p>', '<blockquote><i>Notre jeu a obtenu le prix spécial de la \'zézette éthique\' de la part du jury.</i></blockquote>'),
-(7, 3, 'img/demacia-grandplaza.jpg', 'Réalisation', 'Réalisation', '<p>Lors de la réalisation de ce projet nous avons appris à\r\n                    utiliser le langage HTML/CSS. De plus nous avons du travailler\r\n                    en équipe afin de mener à bien nos missions.<br>\r\n                    Il était parfois difficile d\'avancer mais il faut essayer de\r\n                    se documenter au maximum. <br>Nous avons pu\r\n                    réaliser un site sur un sujet qui nous tenait à coeur.', '<blockquote>\r\n                    Ici au <a href=\'https://gamingcampus.fr/\' target=\'_blank\' rel=\'nofollow external\'>Gaming Campus</a> on essaie tous de se pousser les uns les autres\r\n                    et de s\'ameliorer tous les jours afin de réaliser nos\r\n                    rêves ainsi nos projets que avons en moyenne toutes les deux semaines.\r\n                    Pour tenir le rythme nous devons travailler pendant les heures\r\n                    de cours évidemment mais aussi beaucoup à la maison. Cela est\r\n                    aussi preconisé par les professeurs.\r\n                    </blockquote>\r\n                    <p>Cette manière d\'apprendre est très différente des manières du lycée et du collège. Nous avons une pédagogie par projet avec\r\n                    très peu de cours magistraux mais beaucoup de <b>pratique</b>.</p>'),
-(8, 2, 'img/p4_3.png', 'Développement', 'Langage C', '<p class=\'center-align\'>Apprendre un langage de programmation en 3 semaines n\'est pas chose simple.</p>', '<p>Pour Baptiste et son binôme tout était nouveau, assimilé le C/Git/Linux pour réaliser son projet fut un long périple mais ils ont sû surmonter les épreuves et terminer leur projet à temps et avec brio.</p>\r\n                  <p>Pour Hugo et <a href=\'https://www.linkedin.com/in/guilian-pipart-635a60221/\' rel=\'nofollow external\' target=\'_blank\'>Guilian PIPART</a>, vu qu\'ils avaient déjà connaissance du langage C, le développement fut moins long et avec une certaine aisance, ils ont tout de même développé des fonctionnalités non demandées dans le cahier des charges pour aller encore plus loin ainsi que donné des cours de tutorats pour les autres binômes dans le besoin.'),
-(9, 2, 'img/p4_2.jpg', 'Conclusion', 'L\'apport', 'Beaucoup de connaissance et d\'expérience en peu de temps. Savoir utiliser le langage C et l\'algorithmie sont des grosses bases pour la suite. Même si le puissance 4 est purement textuel, nous sommes très fièrs de nos créations.', 'La pédagogie par projet, se concentrant sur la pratique, nous donnes énormément de connaissance en peu de temps.');
+INSERT INTO `carte` (`id`, `id_projet`, `image`, `image_alt`, `titre`, `l_titre`, `texte`, `notation`) VALUES
+(1, 1, 'img/th.jpg', 'T\'as déjà regardé ta vulve dans un miroir ProgGuys game', 'Introduction', 'Le challenge', 'Créer son premier jeu en 48H n\'est pas chose facile, heureusement j\'ai eu la chance de faire partie d\'une équipe formidable où la <b>communication et la bonne ambiance</b> furent au rendez-vous.', 'Jour 1 : Brainstorming avec l\'équipe et répartition des tâches\r\nJour 2 : Programmation avec mon coéquipier\r\nJour 3 : Rush final'),
+(2, 2, 'img/p4_1.png', 'game connect 4 prog guys progguys', 'Mission', 'Créer un puissance 4 textuel', 'Pour notre deuxieme projet au nous devions créer un puissance 4 à l\'aide du langage C et de github que nous devions se familiariser pour notre futur métier', 'Nous devions le réaliser dans un environnement Linux avec le système d\'exploitation Debian et apprendre à utiliser emacs, gcc ainsi que les commandes bash.'),
+(3, 3, 'img/demacia-silvermere.jpg', 'league of legends lol demacia site web prog guys progguys', 'Mission', 'Créer un site web', 'class=\"center-align\">Lors de la semaine du 1er novembre, nous devions créer un site web sur un jeu de notre\r\n                  choix.', 'Accompagné de mon camarade Lucas VOCANSON nous avons choisi League of Legends, et plus précisement la région de Demacia que nous avons décidé de présenter. Nous avons dû suivre les instructions d\'un cahier des charges afin de réussir notre site web. Le SEO a aussi été abordé lors de ce projet, nous comprenons maintenant comment l\'utiliser et à quel point il est important.'),
+(4, 1, 'img/game_1.jpg', 'T\'as déjà regardé ta vulve dans un miroir ProgGuys game', 'Le jeu', 'T\'as déjà regardé ta vulve dans un miroir ?', 'Un couple joue tranquillement à un RPG érotique,  et le jeu suscite des discussions autour de leur relation et de la sexualité. On comprend qu\'ielles avaient prévu de se filmer en train de faire l\'amour mais... ielles ont été trop stressé.e.s et ont choisi de se détendre en allumant la console.', 'Notre chercheuse avait une thèse sur la sexualité dans les jeu-vidéos durant les années 80 et pour cela nous avons incorporer un j-rpg pixélisé dans notre jeu.'),
+(5, 1, 'img/game_2.jpg', 'T\'as déjà regardé ta vulve dans un miroir ProgGuys game code', 'Le développement', 'Unity & C#', 'Ayant de bonnes connaissances en C# et un bon professeur je n\'étais pas perdu dans la masse de travail à faire. La communication avec GIT fut simple et efficace grâce à mon précédent projet scolaire qui m\'a apporté de grandes bases.\r\n                  ', 'Mes tâches étaient de :\r\n- Créer des objets scriptés \'tours\' pour faire avancer le jeu, un moyen rapide et efficace pour faire un jeu en 48H\r\n- Importer tous les assets dans Unity et les relier dans les scriptes\r\n- Réaliser les différentes scènes du jeu (titre/principale/crédit)\r\n- Faire les animations sous Unity\r\n- Fixer les petits bugs'),
+(6, 1, 'img/game_1.jpg', 'T\'as déjà regardé ta vulve dans un miroir ProgGuys game', 'Conclusion', 'L\'apport', 'Avant la Game Jam j\'étais très inquiet sur ce que je pourrais apporter à l\'équipe pour le développement de jeu, mais grâce à mon coéquipier qui a su me mettre en confiance et des sessions intenses de programmations, j\'ai pû faire de cette première fois une réussite.', 'Notre jeu a obtenu le prix spécial de la \'zézette éthique\' de la part du jury.'),
+(7, 3, 'img/demacia-grandplaza.jpg', 'league of legends lol demacia site web prog guys progguys', 'Réalisation', 'Réalisation', 'Lors de la réalisation de ce projet nous avons appris à utiliser le langage HTML/CSS. De plus nous avons du travailler\r\nen équipe afin de mener à bien nos missions. Il était parfois difficile d\'avancer mais il faut essayer de se documenter au maximum. Nous avons pu réaliser un site sur un sujet qui nous tenait à coeur.', 'Ici au Gaming Campus</a> on essaie tous de se pousser les uns les autres et de s\'ameliorer tous les jours afin de réaliser nos rêves ainsi nos projets que avons en moyenne toutes les deux semaines. Pour tenir le rythme nous devons travailler pendant les heures\r\nde cours évidemment mais aussi beaucoup à la maison. Cela est aussi preconisé par les professeurs. Cette manière d\'apprendre est très différente des manières du lycée et du collège. Nous avons une pédagogie par projet avec très peu de cours magistraux mais beaucoup de pratique.'),
+(8, 2, 'img/p4_3.png', 'game connect 4 prog guys progguys', 'Développement', 'Langage C', 'Apprendre un langage de programmation en 3 semaines n\'est pas chose simple.', 'Pour Baptiste et son binôme tout était nouveau, assimilé le C/Git/Linux pour réaliser son projet fut un long périple mais ils ont sû surmonter les épreuves et terminer leur projet à temps et avec brio. Pour Hugo et Guilian PIPART, vu qu\'ils avaient déjà connaissance du langage C, le développement fut moins long et avec une certaine aisance, ils ont tout de même développé des fonctionnalités non demandées dans le cahier des charges pour aller encore plus loin ainsi que donné des cours de tutorats pour les autres binômes dans le besoin.'),
+(9, 2, 'img/p4_2.jpg', 'game connect 4 prog guys progguys', 'Conclusion', 'L\'apport', 'Beaucoup de connaissance et d\'expérience en peu de temps. Savoir utiliser le langage C et l\'algorithmie sont des grosses bases pour la suite. Même si le puissance 4 est purement textuel, nous sommes très fièrs de nos créations.', 'La pédagogie par projet, se concentrant sur la pratique, nous donnes énormément de connaissance en peu de temps.');
 
 -- --------------------------------------------------------
 
@@ -166,14 +167,16 @@ CREATE TABLE IF NOT EXISTS `projet_liens` (
   `lien` varchar(200) NOT NULL,
   `icone` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `projet_liens`
 --
 
 INSERT INTO `projet_liens` (`id`, `id_projet`, `lien`, `icone`) VALUES
-(1, 3, 'http://lore-demacia.alwaysdata.net/', 'public');
+(1, 3, 'http://lore-demacia.alwaysdata.net/', 'public'),
+(2, 1, 'https://www.youtube.com/watch?v=WHX76n6wkME', 'nullcouille'),
+(3, 1, 'https://matote.itch.io/ta-vulve-dans-un-miroir', 'nullcouilleleretour');
 
 -- --------------------------------------------------------
 
@@ -187,14 +190,18 @@ CREATE TABLE IF NOT EXISTS `réseaux` (
   `lien` varchar(200) NOT NULL,
   `id_user` int(8) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `réseaux`
 --
 
 INSERT INTO `réseaux` (`id`, `lien`, `id_user`) VALUES
-(1, 'https://www.linkedin.com/in/hugo-maestracci-22b019222/', 1);
+(1, 'https://www.linkedin.com/in/hugo-maestracci-22b019222/', 1),
+(2, 'https://github.com/Sh4dy01/', 1),
+(3, 'https://www.instagram.com/hugo.m.83/', 1),
+(4, 'https://github.com/judegoiave', 2),
+(5, 'https://www.instagram.com/baptiste_millan14/', 2);
 
 -- --------------------------------------------------------
 
@@ -237,16 +244,25 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id_equipe` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user`
 --
 
 INSERT INTO `user` (`id`, `privileges`, `email`, `password`, `prenom`, `nom`, `parcours`, `id_equipe`) VALUES
-(1, 1, 'hmaestracci@gaming.tech', 'b7a6d580fa233088b213d9cd1cbb7e1145f7d64a', 'Hugo', 'MAESTRACCI', '<li><span>Etudiant en <a href=\"https://gaming.tech/\" target=\"_blank\" rel=\"external nofollow\">G-TECH 1</a> au Gaming Campus de Lyon</span></li>\r\n                    <li><span>Anciennement :</span><br>\r\n                      <ul>\r\n                        <li><span>- Serveur à l\'Instant Gourmand</span></li>\r\n                        <li><span>- 1 an en License informatique à TOULON</span></li>\r\n                        <li><span>- BAC STI2D option Système d\'Information et Numérique</span></li>\r\n                      </ul>\r\n                    </li>\r\n                    <li><blockquote class=\"center-align\">\"Je suis rentré au Gaming Campus dans le seul but d\'atteindre mon rêve, qui est d\'avoir les compétences nécessaires pour réaliser mes projets dans le monde du jeu-vidéo.\"</blockquote></li>', 1),
-(2, 1, 'bmillan@gaming.tech', 'cf49f9d210982c802742be8bcfafbf4a3d1a205f', 'Baptiste', 'MILLAN', '<li><span>Etudiant en <a href=\"https://gaming.tech/\" target=\"_blank\" rel=\"external nofollow\">G-TECH 1</a> au Gaming Campus de Lyon</span></li>\r\n                    <li><span>Anciennement :</span><br>\r\n                      <ul>\r\n                        <li><span>- BAC S au Lycée Français de Séoul</span></li>\r\n                        <li><span>- DUT GMP à Rennes</span></li>\r\n                      </ul>\r\n                    </li>\r\n                    <li><blockquote class=\"center-align\">\"Je suis très content dans cette filière et même si je ne connaissais jusqu\'alors rien en programmation, j\'avance et tout le monde se serre les coudes\"</blockquote></li>', 1),
-(3, 0, 'jm@aulas.fr', '8cb2237d0679ca88db6464eac60da96345513964', 'JM', 'Aulas', NULL, 0);
+(1, 1, 'hmaestracci@gaming.tech', 'b7a6d580fa233088b213d9cd1cbb7e1145f7d64a', 'Hugo', 'MAESTRACCI', 'Etudiant en G-TECH 1 au Gaming Campus de Lyon Anciennement: \r\n- Serveur à l\'Instant Gourmand                        - 1 an en License informatique à TOULON\r\n- BAC STI2D option Système d\'Information et Numérique\r\n\r\n\"Je suis rentré au Gaming Campus dans le seul but d\'atteindre mon rêve, qui est d\'avoir les compétences nécessaires pour réaliser mes projets dans le monde du jeu-vidéo.\"', 1),
+(11, 0, 'yasuo@gmail.com', 'cc4615ca3741499bc268b1a9f3455ab39b6915d2', 'Yasuo', 'Hasagi', NULL, 0),
+(12, 0, 'roronoazoro@gmail.com', 'b887d98df2ce8350a8a9bffae341afdaf101f65d', 'Zoro', 'Roronoa', NULL, 0),
+(13, 0, 'cristianoronaldo@gmail.com', '03cab488874b5d75cc2f3aae3ee33ca334b8e414', 'Cristiano', 'Ronaldo', NULL, 0),
+(2, 1, 'bmillan@gaming.tech', 'cf49f9d210982c802742be8bcfafbf4a3d1a205f', 'Baptiste', 'MILLAN', 'Etudiant en G-TECH 1 au Gaming Campus de Lyon Anciennement: \r\n- BAC S au Lycée Français de Séoul\r\n- DUT GMP à Rennes\r\n\r\n\"Je suis très content dans cette filière et même si je ne connaissais jusqu\'alors rien en programmation, j\'avance et tout le monde se serre les coudes\"</blockquote></li>', 1),
+(7, 0, 'pipartguilian@gmail.com', '2c786a1a9d6bef869a82238da944ab5a7b2ca8f9', 'Guilian', 'Pipart', NULL, 0),
+(8, 0, 'macronemmanuel@gmail.com', '3010faf02ee25fcebd276caa0e4cca75f9b62645', 'Emmanuel', 'Macron', NULL, 0),
+(9, 0, 'antoinediroberto@gmail.com', 'ab17e02697999202fb352ed031e0608067e7b5ce', 'Antoine', 'Di Roberto', NULL, 0),
+(10, 0, 'michealjordan@gmail.com', '93cf42f8c467533d2dbe667288a6733e8b767174', 'Micheal', 'Jordan', NULL, 0),
+(3, 0, 'jm@aulas.fr', '8cb2237d0679ca88db6464eac60da96345513964', 'JM', 'Aulas', NULL, 0),
+(14, 0, 'mathymimie@gmail.com', '0bc9831696d08dcfe08789c093f556c4d60c914f', 'Mathy', 'Mimie', NULL, 0),
+(15, 0, 'mandelanelson@gmail.com', 'e2520281bb49c638ff1a10ba80d7722c8af8350b', 'Mandela', 'Nelson', NULL, 0);
 
 -- --------------------------------------------------------
 
