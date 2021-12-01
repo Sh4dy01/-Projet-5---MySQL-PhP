@@ -1,5 +1,6 @@
 $(document).ready(function(){
   $('.modal').modal();
+  $('.tabs').tabs();
   $('.sidenav').sidenav();
   $('.dropdown-trigger').dropdown();
   $('input#input_text, textarea#textarea2, input#secret_text').characterCounter();
@@ -7,7 +8,6 @@ $(document).ready(function(){
   $('.carousel').carousel();
   $('.fixed-action-btn').floatingActionButton();
   $('.tap-target').tapTarget();
-  $('.tabs').tabs();
 });
 
 $('.carousel.carousel-slider').carousel({

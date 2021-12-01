@@ -22,52 +22,52 @@
       <main id="main">
         <!--- Check if the user is connected and if he is admin!--->
         <?php if(isset($_SESSION['user'])){?>
-          <section class="container section grey">
-            <?php if(isset($_SESSION['user'])){?>
-              <span>Connecté en tant que : <?php echo $_SESSION['user']['prenom']." ".$_SESSION['user']['nom'] ?></span>
-            <?php }else{ ?>
-              <span>Vous n'êtes pas connecté</span>
-            <?php } ?>
-
-            <!-- Admin view !-->
-            <?php if ($_SESSION['user']['privileges']==1){ ?>
-              <h3>Pannel admin :</h3>
+          <!-- Admin view !-->
+          <?php if ($_SESSION['user']['privileges']==1){ ?>
+            <section class="container grey section">
+              <h3 class="center-align">Panel admin</h3>
               <div class="admin row white">
                 <div class="col s12 l12">
                   <ul class="tabs">
-                    <li class="active tab col s3"><a href="#admin_users">Test 1</a></li>
-                    <li class="tab col s3"><a href="#admin_projects">Test 2</a></li>
-                    <li class="tab col s3"><a href="#test3">Disabled Tab</a></li>
-                    <li class="tab col s3"><a href="#test4">Test 4</a></li>
+                    <li class="tab col s3"><a class="active" href="#admin_users">Gestion Utilisateurs</a></li>
+                    <li class="tab col s3"><a href="#admin_projects">Gestion Projet</a></li>
                   </ul>
                 </div>
                 <div id="admin_users" class="col s12">
-                  <span class="red-text">UTILISATEURS :</span>
+                  <div class="row red-text center-align">
+                    <span class="col l2"> DROITS</span>
+                    <span class="col l2"> NOM</span>
+                    <span class="col l2"> MAIL</span>
+                    <span class="col l2"> EQUIPE</span>
+                    <span class="col l4"> OPTIONS</span>
+                  </div>
                   <?php
                     $sql = "SELECT user.id, privileges, user.id_equipe, email, prenom, nom, nom_equipe FROM user INNER JOIN equipe ON equipe.id = user.id_equipe;";
                     $pre = $pdo->prepare($sql);
                     $pre->execute();
                     $data = $pre->fetchAll(PDO::FETCH_ASSOC);
                     foreach($data as $user){ ?>
-                      <div class="single" id="<?php echo $user['id'] ?>">
-                        <span><?php echo $user['prenom']." ".$user['nom'] ?> | </span>
-                        <span><?php echo $user['email'] ?> | </span>
-                        <?php if ($user['id_equipe']==0){ ?>
-                          <span>Aucune équipe | </span>
-                        <?php }else{?>
-                          <span><?php echo $user['nom_equipe'] ?> | </span>
-                        <?php } ?>
+                      <div class="row center-align" id="<?php echo $user['id'] ?>">
                         <?php if ($user['privileges']==1){ ?>
-                          <span>Admin</span>
+                          <span class="col l2">Admin</span>
                         <?php }else{?>
-                          <span>Utilisateur</span>
+                          <span class="col l2">Utilisateur</span>
                         <?php } ?>
+                        <span class="col l2"><?php echo $user['prenom']." | ".$user['nom'] ?></span>
+                        <span class="col l2"><?php echo $user['email'] ?></span>
+                        <?php if ($user['id_equipe']==0){ ?>
+                          <span class="col l2">Aucune équipe</span>
+                        <?php }else{?>
+                          <span class="col l2"><?php echo $user['nom_equipe'] ?></span>
+                        <?php } ?>
+                        <div class="col l4">
+                          <button type="button" name="button"></button>
+                        </div>
                       </div>
                     <?php }
                   ?>
                 </div>
                 <div id="admin_projects" class="col s12">
-                  <span class="red-text">PROJETS :</span>
                   <?php
                     $sql = "SELECT titre, projet.id, prenom, nom FROM projet INNER JOIN user ON user.id=projet.id_user;";
                     $pre = $pdo->prepare($sql);
@@ -80,23 +80,20 @@
                       </div>
                   <?php } ?>
                 </div>
-                <div id="test3" class="col s12">Test 3</div>
-                <div id="test4" class="col s12">Test 4</div>
               </div>
-            <?php } ?>
-          </section>
+              <?php } ?>
+            </section>
 
           <!-- Presentation !-->
           <section class="container section grey lighten-4 z-depth-4" id="presentation">
-
             <div class="center-align">
-              <h2><?php echo $_SESSION['user']['nom_equipe'] ?></h2>
-              <!-- PHP pour récupérer les users appartenant à la même équipe de l'user login !-->
-              <?php
-              if (empty($workers)){ ?>
+              <?php if ($_SESSION['user']['id_equipe']==0){ ?>
+                <h2>Solo</h2>
                 <span>Vous n'avez pas rejoins d'équipe</span>
-              <?php }else{ ?>
-                <i><?php echo $_SESSION['user']['description']?></i>
+              <?php }
+              else{ ?>
+                <h2><?php echo $team['nom_equipe'] ?></h2>
+                <i><?php echo $team['description']?></i>
             </div>
             <div class="row">
               <?php foreach($workers as $user){ ?>
@@ -125,8 +122,29 @@
 
           <!-- Portfolio !-->
           <section class="container section grey lighten-4 z-depth-4" id="projects">
+            <div class="center-align">
+              <h2>Portfolio</h2>
+              <ul>
+                <li><button data-target="add_project" class="btn blue modal-trigger"><i class="material-icons">add</i></button></li>
+              </ul>
+            </div>
 
-            <h2 class="center-align">Portfolio</h2>
+            <div id="add_project" class="modal">
+              <div class="modal-content">
+                <h4 class="center-align">Ajout de projet</h4>
+                <form  action="php/add_project.php" method="post">
+                  <ul>
+                    <li><span>Titre : </span><input id="titre" type="text" name="titre" value=""/></li>
+                    <li><span>Description : </span><input id="desc" type="text" name="desc" value=""/></li>
+                    <li><button class="waves-effect waves-light blue btn green" type="submit" name="action"><i class="material-icons">done</i></button>
+                    </li>
+                  </ul>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
+              </div>
+            </div>
             <?php if (empty($type_project)){?>
               <div class="center-align container">
                 <span>Vous n'avez pas encore publié de projet.</span>
@@ -140,7 +158,7 @@
                   </div>
                   <div class="collapsible-body row">
                     <?php
-                    $sql = "SELECT projet.id, user.prenom, projet.image, projet.image_alt, titre, projet.desc, img_user.p_image, img_user.p_img_alt FROM projet INNER JOIN img_user ON img_user.id_user = projet.id_user INNER JOIN user ON user.id =".$_SESSION['user']['id']." WHERE projet.id_user=".$_SESSION['user']['id']." AND type=".$type['type'].";";
+                    $sql = "SELECT projet.id, user.prenom, projet.image, projet.image_alt, titre, projet.description, img_user.p_image, img_user.p_img_alt FROM projet INNER JOIN img_user ON img_user.id_user = projet.id_user INNER JOIN user ON user.id =".$_SESSION['user']['id']." WHERE projet.id_user=".$_SESSION['user']['id']." AND type=".$type['type'].";";
                     $pre = $pdo->prepare($sql);
                     $pre->execute();
                     $tmp_projects = $pre->fetchAll(PDO::FETCH_ASSOC);
@@ -153,7 +171,7 @@
                             </div>
                             <div class="card-content">
                               <h5><?php echo $project['titre'] ?></h5>
-                              <p><?php echo $project['desc'] ?></p>
+                              <p><?php echo $project['description'] ?></p>
                             </div>
                             <div class="card-action">
                               <div class="row valign-wrapper">

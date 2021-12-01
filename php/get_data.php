@@ -4,6 +4,11 @@ $pre = $pdo->prepare($sql);
 $pre->execute();
 $workers = $pre->fetchAll(PDO::FETCH_ASSOC);
 
+$sql = "SELECT nom_equipe, description FROM equipe INNER JOIN user ON user.id_equipe = equipe.id WHERE user.id='".$_SESSION['user']['id']."';";
+$pre = $pdo->prepare($sql);
+$pre->execute();
+$team = current($pre->fetchAll(PDO::FETCH_ASSOC));
+
 $sql = "SELECT * FROM user_liens WHERE id_user='".$_SESSION['user']['id']."';";
 $pre = $pdo->prepare($sql);
 $pre->execute();

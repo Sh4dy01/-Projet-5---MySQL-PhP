@@ -13,7 +13,7 @@
         </a>
         <ul class="right hide-on-med-and-down grey darken-2">
           <li class="orange lighten-1"><a href="index.php" class="waves-effect waves-light"><i class="material-icons">home</i></a></li>
-          <li class="red"><a class="dropdown-trigger waves-effect waves-light" data-target="project-dropdown"><i class="material-icons">construction</i></a></li>
+          <li class="red"><a class="dropdown-trigger waves-effect waves-light" data-target="project-dropdown"><i class="material-icons">web</i></a></li>
           <!-- Project Dropdown Structure -->
           <li><ul id='project-dropdown' class='dropdown-content'>
             <?php foreach ($allProjects as $project){ ?>

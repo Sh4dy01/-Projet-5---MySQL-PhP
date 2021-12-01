@@ -8,6 +8,10 @@ main {
   flex: 1 0 auto;
 }
 
+.inline li{
+  display: inline;
+}
+
 h1, h2, h3, h4, h5, span, p, label, a{
   font-family: 'Kanit', sans-serif;
 }
@@ -22,7 +26,7 @@ h1{
 
 .admin{
   overflow-y: scroll;
-  height: 200px;
+  height: 300px;
 }
 
 /*** Navbar ***/

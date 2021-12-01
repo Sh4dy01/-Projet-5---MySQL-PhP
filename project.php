@@ -25,23 +25,29 @@
           $pre = $pdo->prepare($sql);
           $pre->execute();
           $allLinks = $pre->fetchAll(PDO::FETCH_ASSOC); ?>
-          
+
       </header>
 
       <main id="main">
-
         <section class="section container grey lighten-4 z-depth-4">
           <h2 class="center-align"><?php echo $project['titre'] ?></h2>
+
           <h3 class="center-align">Le projet</h3>
           <div class="row">
             <?php foreach ($allCards as $card){ ?>
-              <div class="col s12 l6">
+              <div class="col s12 l4">
                 <div class="card hoverable">
                   <div class="card-image waves-effect waves-block waves-light">
                     <img class="activator responsive-img" src="<?php echo $card['image'] ?>">
                   </div>
-                  <div class="card-content">
-                    <h3 class="card-title activator grey-text text-darken-4"><?php echo $card['titre'] ?><i class="material-icons right">more_vert</i></h3>
+                  <div class="card-content row valign-wrapper">
+                    <div class="col l9">
+                      <h3 class="card-title activator grey-text text-darken-4"><?php echo $card['titre'] ?></h3>
+                    </div>
+                    <div class="col l3 right-align">
+                      <button class="waves-effect waves-light blue btn orange modal-trigger" data-target="admin_edit_card_id=<?php echo $card['id'] ?>"><i class="material-icons">construction</i></button>
+                      <button class="waves-effect waves-light btn red modal-trigger" data-target="admin_delete_card_id=<?php echo $card['id'] ?>"><i class="material-icons">clear</i></button>
+                    </div>
                   </div>
                   <div class="card-reveal">
                     <h4 class="card-title grey-text text-darken-4"><?php echo $card['l_titre'] ?><i class="material-icons right">close</i></h4>
@@ -51,6 +57,44 @@
                       <?php echo $card['notation'] ?>
                     </blockquote>
                   </div>
+                </div>
+              </div>
+              <div id="admin_edit_card_id=<?php echo $card['id'] ?>" class="modal">
+                <?php
+                $sql = "SELECT * FROM carte WHERE id='".$card['id']."';";
+                $pre = $pdo->prepare($sql);
+                $pre->execute();
+                $dataCard = current($pre->fetchAll(PDO::FETCH_ASSOC));?>
+
+                <div class="modal-content">
+                  <h4>Edition de la carte</h4>
+                  <ul>
+                    <form action="php/admin_send_edit_card.php?id=<?php echo $dataCard['id_projet'] ?>&card=<?php echo $card['id'] ?>" method="post">
+                      <li><span>Titre : </span><input id="titre" type="text" name="titre" value="<?php echo $dataCard['titre'] ?>"/></li>
+                      <li><span>Sous-titre : </span><input id="l_titre" type="text" name="l_titre" value="<?php echo $dataCard['l_titre'] ?>"/></li>
+                      <li><span>Texte : </span><input id="texte" type="text" name="texte" value="<?php echo $dataCard['texte'] ?>"/></li>
+                      <li><span>Notation : </span><input id="notation" type="text" name="notation" value="<?php echo $dataCard['notation'] ?>"/></li>
+                      <li></li>
+                      <li class="row">
+                        <button class="waves-effect waves-light blue btn green" type="submit" name="action">VALIDER</button>
+                      </li>
+                    </form>
+                  </ul>
+                </div>
+                <div class="modal-footer">
+                  <a href="#!" class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
+                </div>
+              </div>
+              <div id="admin_delete_card_id=<?php echo $card['id'] ?>" class="modal">
+                <div class="modal-content center-align">
+                  <h4>AVERTISSEMENT</h4>
+                  <p>Cette action est irréversible.</p>
+                  <form action="php/admin_delete_card.php?id=<?php echo $dataCard['id_projet'] ?>&card=<?php echo $card['id'] ?>" method="post">
+                    <button class="waves-effect waves-light btn red" type="submit" name="action">CONFIRMER LA SUPPRESSION</button>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <a href="#!" class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
                 </div>
               </div>
             <?php } ?>
@@ -79,7 +123,21 @@
               </div>
             </div>
           </div>
+
         </section>
+
+        <?php if ($_SESSION['user']['privileges']==1): ?>
+          <section class="gestion container">
+            <div class="container center-align">
+              <h3>Gestion du projet</h3>
+              <ul class="inline">
+                <li><button data-target="admin_add_card" class="btn blue modal-trigger">AJOUT DE CARTE</button></li>
+                <li><button data-target="admin_edit_project" class="btn orange modal-trigger">MODIFIER LES INFORMATIONS</button></li>
+                <li><button data-target="admin_delete_project" class="btn red modal-trigger">SUPPRESSION</button></li>
+              </ul>
+            </div>
+          </section>
+        <?php endif; ?>
 
         <div class="fixed-action-btn">
           <a class="btn-floating pulse btn-large orange" id="menu">
@@ -93,6 +151,65 @@
         </div>
       </main>
 
+      <div id="admin_edit_project" class="modal">
+        <?php
+        $sql = "SELECT * FROM projet WHERE id='".$_GET['id']."';";
+        $pre = $pdo->prepare($sql);
+        $pre->execute();
+        $dataProject = current($pre->fetchAll(PDO::FETCH_ASSOC));?>
+
+        <div class="modal-content">
+          <h4>Edition du projet</h4>
+          <ul>
+            <form  action="php/admin_send_edit_project.php?id=<?php echo $dataProject['id'] ?>" method="post">
+              <li><span>Titre : </span><input id="titre" type="text" name="titre" value="<?php echo $dataProject['titre'] ?>"/></li>
+              <li><span>Description : </span><input id="desc" type="text" name="desc" value="<?php echo $dataProject['description'] ?>"/></li>
+              <li></li>
+              <li class="row">
+                <button class="waves-effect waves-light blue btn green" type="submit" name="action"><i class="material-icons">done</i></button>
+              </li>
+            </form>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
+        </div>
+      </div>
+      <div id="admin_add_card" class="modal">
+        <div class="modal-content">
+          <h4>Ajout de carte</h4>
+          <ul>
+            <form  action="php/admin_send_add_card.php?id=<?php echo $dataProject['id'] ?>" method="post">
+              <li><span>Titre : </span><input id="titre" type="text" name="titre"/></li>
+              <li><span>Sous-titre : </span><input id="l_titre" type="text" name="l_titre"/></li>
+              <li><span>Texte : </span><input id="texte" type="text" name="texte"/></li>
+              <li><span>Notation : </span><input id="notation" type="text" name="notation"/></li>
+              <li></li>
+              <li class="row">
+                <button class="waves-effect waves-light blue btn green" type="submit" name="action"><i class="material-icons">done</i> </button>
+              </li>
+            </form>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
+        </div>
+      </div>
+      <div id="admin_delete_project" class="modal">
+        <div class="modal-content">
+          <h4>AVERTISSEMENT</h4>
+          <ul>
+            <form action="php/admin_delete_project.php?id=<?php echo $project['id'] ?>" method="post">
+              <li class="row">
+                <button class="waves-effect waves-light btn red" type="submit" name="action"><i class="material-icons">clear</i></button>
+              </li>
+            </form>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
+        </div>
+      </div>
       <!-- Easter Egg -->
       <?php require "php/easter-egg.php" ?>
 

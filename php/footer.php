@@ -27,12 +27,17 @@
          <?php } ?>
          <li><a href="#contact" class="modal-trigger grey-text text-lighten-3">Contactez-nous</a></li>
        </ul>
-     <?php } ?>
-     </div>
+
+        <?php } ?>
+      </div>
     </div>
   </div>
   <div class="footer-copyright">
-   <div class="container">
-     <span>©2021 ProgHub : ProgGuys's property</span>
+   <div class="container row">
+     <span class="col l8">©2021 ProgHub : ProgGuys's property</span>
+     <?php if (isset($_SESSION['user'])){ ?>
+      <span class="col l4 black-text">Connecté en tant que : <?php echo $_SESSION['user']['prenom']." ".$_SESSION['user']['nom'] ?></span>
+    <?php } ?>
+
    </div>
   </div>
