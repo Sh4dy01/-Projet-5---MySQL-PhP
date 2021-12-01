@@ -22,10 +22,7 @@ h1{
 
 .admin{
   overflow-y: scroll;
-  max-height:100px;
-}
-.single{
-  min-height:25px;
+  height: 200px;
 }
 
 /*** Navbar ***/

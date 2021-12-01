@@ -32,9 +32,16 @@
             <!-- Admin view !-->
             <?php if ($_SESSION['user']['privileges']==1){ ?>
               <h3>Pannel admin :</h3>
-              <div class="row white">
-
-                <div class="admin col s12 m6 l6">
+              <div class="admin row white">
+                <div class="col s12 l12">
+                  <ul class="tabs">
+                    <li class="active tab col s3"><a href="#admin_users">Test 1</a></li>
+                    <li class="tab col s3"><a href="#admin_projects">Test 2</a></li>
+                    <li class="tab col s3"><a href="#test3">Disabled Tab</a></li>
+                    <li class="tab col s3"><a href="#test4">Test 4</a></li>
+                  </ul>
+                </div>
+                <div id="admin_users" class="col s12">
                   <span class="red-text">UTILISATEURS :</span>
                   <?php
                     $sql = "SELECT user.id, privileges, user.id_equipe, email, prenom, nom, nom_equipe FROM user INNER JOIN equipe ON equipe.id = user.id_equipe;";
@@ -59,8 +66,7 @@
                     <?php }
                   ?>
                 </div>
-
-                <div class="admin col s12 m6 l6">
+                <div id="admin_projects" class="col s12">
                   <span class="red-text">PROJETS :</span>
                   <?php
                     $sql = "SELECT titre, projet.id, prenom, nom FROM projet INNER JOIN user ON user.id=projet.id_user;";
@@ -74,6 +80,8 @@
                       </div>
                   <?php } ?>
                 </div>
+                <div id="test3" class="col s12">Test 3</div>
+                <div id="test4" class="col s12">Test 4</div>
               </div>
             <?php } ?>
           </section>

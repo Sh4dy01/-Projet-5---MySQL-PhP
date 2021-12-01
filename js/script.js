@@ -7,6 +7,7 @@ $(document).ready(function(){
   $('.carousel').carousel();
   $('.fixed-action-btn').floatingActionButton();
   $('.tap-target').tapTarget();
+  $('.tabs').tabs();
 });
 
 $('.carousel.carousel-slider').carousel({
@@ -132,6 +133,3 @@ $("#secret_btn" ).click(function() {
 $("#return_btn").click(function() {
   location.reload();
 });
-
-$("#register_btn").click(function(){
-})
