@@ -20,6 +20,14 @@ h1{
   margin-bottom: 50px;
 }
 
+.admin{
+  overflow-y: scroll;
+  max-height:100px;
+}
+.single{
+  min-height:25px;
+}
+
 /*** Navbar ***/
 
 nav ul a.btn{

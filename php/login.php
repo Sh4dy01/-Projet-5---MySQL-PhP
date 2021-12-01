@@ -1,15 +1,15 @@
 <?php
   require_once "config.php";
 
-  $sql = "SELECT * FROM user WHERE email='".$_POST['email']."' AND password=SHA1('".$_POST['password']."')";
+  $sql = "SELECT * FROM user INNER JOIN equipe ON equipe.id = user.id_equipe WHERE email='".$_POST['email']."' AND password=SHA1('".$_POST['password']."')";
   $pre = $pdo->prepare($sql);
   $pre->execute();
-  $user = current($pre->fetchAll(PDO::FETCH_ASSOC)); //current prend la première ligne du tableau
-  if(empty($user)){ //vérifie si le resultat est vide !
-       //non connecté
-       echo "Utilisateur ou mot de passe incorrect !";
+  $user = current($pre->fetchAll(PDO::FETCH_ASSOC));
+  
+  if(empty($user)){
+    echo "Utilisateur ou mot de passe incorrect !";
   }else{
-       $_SESSION['user'] = $user; //on enregistre que l'utilisateur est connecté
+    $_SESSION['user'] = $user;
   }
-  header('Location:../index.php');//on le redirige sur la page d'accueil du site !
+  header('Location:../index.php');
 ?>

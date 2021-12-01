@@ -132,3 +132,6 @@ $("#secret_btn" ).click(function() {
 $("#return_btn").click(function() {
   location.reload();
 });
+
+$("#register_btn").click(function(){
+})
