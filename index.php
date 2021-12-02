@@ -29,8 +29,9 @@
               <div class="admin row white">
                 <div class="col s12 l12">
                   <ul class="tabs">
-                    <li class="tab col s6"><a class="active" href="#admin_users">Gestion Utilisateurs</a></li>
-                    <li class="tab col s6"><a href="#admin_projects">Gestion Projet</a></li>
+                    <li class="tab col s4"><a class="active" href="#admin_users">Gestion des Utilisateurs</a></li>
+                    <li class="tab col s4"><a href="#admin_projects">Gestion Projets</a></li>
+                    <li class="tab col s4"><a href="#admin_types">Gestion Catégories</a></li>
                   </ul>
                 </div>
                 <div id="admin_users" class="col s12">
@@ -42,7 +43,7 @@
                     <span class="col l3"> OPTIONS</span>
                   </div>
                   <?php
-                    $sql = "SELECT user.id, privileges,active, user.id_equipe, email, prenom, nom, parcours, nom_equipe FROM user INNER JOIN equipe ON equipe.id = user.id_equipe;";
+                    $sql = "SELECT user.id, privileges,active, user.id_equipe, email, prenom, nom, parcours, nom_equipe FROM user INNER JOIN equipe ON equipe.id = user.id_equipe ORDER BY id;";
                     $pre = $pdo->prepare($sql);
                     $pre->execute();
                     $data = $pre->fetchAll(PDO::FETCH_ASSOC);
@@ -62,7 +63,7 @@
                         <?php } ?>
                         <div class="col l3">
                           <?php if ($user['privileges']==0 OR ($user['privileges']==1 && $user['id']==$_SESSION['user']['id'])): ?>
-                            <button class="waves-effect waves-light btn-small orange modal-trigger" data-target="admin_edit_user_id=<?php echo $user['id'] ?>"><i class="tiny material-icons">construction</i></button>
+                            <button class="waves-effect waves-light btn-small orange modal-trigger" data-target="admin_edit_user_id=<?php echo $user['id'] ?>"><i class="tiny material-icons">edit</i></button>
                             <button class="waves-effect waves-light btn-small red modal-trigger" data-target="admin_desactivate_user_id=<?php echo $user['id'] ?>"><i class="tiny material-icons">clear</i></button>
                           <?php endif; ?>
                         </div>
@@ -108,7 +109,7 @@
                     <span class="col l4"> OPTIONS</span>
                   </div>
                   <?php
-                    $sql = "SELECT titre, projet.id, prenom, nom FROM projet INNER JOIN user ON user.id=projet.id_user;";
+                    $sql = "SELECT titre, projet.id, prenom, nom FROM projet INNER JOIN user ON user.id=projet.id_user ORDER BY projet.id;";
                     $pre = $pdo->prepare($sql);
                     $pre->execute();
                     $data = $pre->fetchAll(PDO::FETCH_ASSOC);
@@ -118,6 +119,103 @@
                         <span class="col l4"><?php echo $project['prenom']." | ".$project['nom'] ?></span>
                         <div class="col l4">
                           <a class="waves-effect waves-light btn-small blue" href="project.php?id=<?php echo $project['id'] ?>"><i class="tiny material-icons">chevron_right</i></a>
+                          <button class="waves-effect waves-light btn-small red modal-trigger" data-target="admin_delete_project_id=<?php echo $project['id'] ?>"><i class="tiny material-icons">delete</i></button>
+                        </div>
+                      </div>
+                      <div id="admin_delete_project_id=<?php echo $project['id'] ?>" class="modal">
+                        <div class="modal-content center-align red-text">
+                          <h4>Suppression du projet</h4>
+                          <span>Cette action est irréversible.</span>
+                          <form action="php/admin_delete_project.php?id=<?php echo $project['id'] ?>" method="post">
+                            <ul>
+                              <li class="row">
+                                <button class="waves-effect waves-light btn red center" type="submit" name="action">CONFIRMER</button>
+                              </li>
+                            </ul>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <a class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
+                        </div>
+                      </div>
+                  <?php } ?>
+                </div>
+                <div id="admin_types" class="col s12">
+                  <div class="row red-text center-align">
+                    <span class="col l4">NOM</span>
+                    <span class="col l4">IMAGE</span>
+                    <span class="col l4">OPTIONS</span>
+                  </div>
+                  <div class="row valign-wrapper center-align">
+                    <form class="col l12" action="php/admin_add_type.php" method="post">
+                      <input class="col l4" id="nom" type="text" name="nom"/>
+                      <div class="col l4">
+                      </div>
+                      <div class="col l4 center-align">
+                        <button class="waves-effect waves-light blue btn-small" type="submit" name="action"><i class="material-icons">add</i> </button>
+                      </div>
+                    </form>
+                  </div>
+                  <?php
+                    $sql = "SELECT * FROM type_projet ORDER BY id;";
+                    $pre = $pdo->prepare($sql);
+                    $pre->execute();
+                    $data = $pre->fetchAll(PDO::FETCH_ASSOC);
+                    foreach($data as $type){ ?>
+                      <?php if ($type['id']!=0): ?>
+                        <div class="row valign-wrapper center-align" id="<?php echo $type['id'] ?>">
+                          <span class="col l4"><?php echo $type['nom'] ?></span>
+                          <img class="col l4 circle responsive-img" src="<?php echo $type['image']?>">
+                          <div class="col l4">
+                            <button class="waves-effect waves-light btn-small orange modal-trigger" data-target="admin_edit_type_id=<?php echo $type['id'] ?>"><i class="tiny material-icons">edit</i></button>
+                              <button class="waves-effect waves-light btn-small red modal-trigger" data-target="admin_delete_type_id=<?php echo $type['id'] ?>"><i class="tiny material-icons">delete</i></button>
+                          </div>
+                        </div>
+                      <?php endif; ?>
+                      <div id="admin_edit_type_id=<?php echo $type['id'] ?>" class="modal">
+                        <div class="modal-content">
+                          <h4>Edition de la catégorie</h4>
+                          <form action="php/admin_edit_type.php?id=<?php echo $type['id'] ?>" method="post">
+                            <ul>
+                              <li><span>Nom : </span><input id="nom" type="text" name="nom" value="<?php echo $type['nom'] ?>"/></li>
+                              <li>
+                                <form>
+                                  <div class="file-field input-field">
+                                    <div class="btn">
+                                      <span>Image</span>
+                                      <input type="file">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                      <input class="file-path validate" type="text">
+                                    </div>
+                                  </div>
+                                </form>
+                              </li>
+                              <li class="row">
+                                <button class="waves-effect waves-light blue btn green right" type="submit" name="action"><i class="material-icons">check</i></button>
+                              </li>
+                            </ul>
+                          </form>
+
+                        </div>
+                        <div class="modal-footer">
+                          <a class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
+                        </div>
+                      </div>
+                      <div id="admin_delete_type_id=<?php echo $type['id'] ?>" class="modal">
+                        <div class="modal-content center-align red-text">
+                          <h4>Suppression de la catégorie</h4>
+                          <span>Cette action est irréversible.</span>
+                          <form action="php/admin_delete_type.php?id=<?php echo $type['id'] ?>" method="post">
+                            <ul>
+                              <li class="row">
+                                <button class="waves-effect waves-light btn red center" type="submit" name="action">CONFIRMER</button>
+                              </li>
+                            </ul>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <a class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
                         </div>
                       </div>
                   <?php } ?>
@@ -186,64 +284,18 @@
               <?php } ?>
             </div><?php } ?>
 
-            <div id="edit_profil" class="modal">
-              <div class="modal-content">
-                <h4>Edition du profile</h4>
-                <form action="php/edit_profile.php" method="post">
-                  <ul>
-                    <li><span>Prénom : </span><input id="prenom" type="text" name="prenom" value="<?php echo $_SESSION['user']['prenom'] ?>"/></li>
-                    <li><span>Nom : </span><input id="nom" type="text" name="nom" value="<?php echo $_SESSION['user']['nom'] ?>"/></li>
-                    <li><span>Parcours : </span><input id="parcours" type="text" name="parcours" value="<?php echo $_SESSION['user']['parcours'] ?>"/></li>
-                    <li><form method="post" action="upload_file.php" enctype="multipart/form-data">
-                      <input type='file' name='image'>
-                    </form></li>
-                    <li class="row">
-                      <button class="waves-effect waves-light blue btn green" type="submit" name="action"><i class="material-icons">check</i></button>
-                    </li>
-                  </ul>
-                </form>
 
-              </div>
-              <div class="modal-footer">
-                <a class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
-              </div>
-            </div>
           </section>
 
           <!-- Portfolio !-->
           <section class="container section grey lighten-4 z-depth-4" id="projects">
             <div class="center-align">
               <h2>Mon Portfolio</h2>
-              <div class="input-field col s12">
-                <select>
-                  <option value="" selected>Choose your option</option>
-                  <option value="1">Option 1</option>
-                  <option value="2">Option 2</option>
-                  <option value="3">Option 3</option>
-                </select>
-                <label>Materialize Select</label>
-              </div>
               <ul>
                 <li><button data-target="add_project" class="btn blue modal-trigger"><i class="material-icons">add</i>projet</button></li>
               </ul>
             </div>
 
-            <div id="add_project" class="modal">
-              <div class="modal-content">
-                <h4 class="center-align">Ajout de projet</h4>
-                <form  action="php/add_project.php" method="post">
-                  <ul>
-                    <li><span>Titre : </span><input id="titre" type="text" name="titre" value=""/></li>
-                    <li><span>Description : </span><input id="desc" type="text" name="desc" value=""/></li>
-                    <li><button class="waves-effect waves-light blue btn green" type="submit" name="action"><i class="material-icons">done</i></button>
-                    </li>
-                  </ul>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <a href="#!" class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
-              </div>
-            </div>
             <?php if (empty($type_project)){?>
               <div class="center-align container">
                 <span>Vous n'avez pas encore publié de projet.</span>
@@ -431,11 +483,150 @@
             </div>
           </section>
         <?php } ?>
+
+        <div id="edit_profil" class="modal">
+          <div class="modal-content">
+            <h4>Edition du profile</h4>
+            <form action="php/edit_profile.php" method="post">
+              <ul>
+                <li><span>Prénom : </span><input id="prenom" type="text" name="prenom" value="<?php echo $_SESSION['user']['prenom'] ?>"/></li>
+                <li><span>Nom : </span><input id="nom" type="text" name="nom" value="<?php echo $_SESSION['user']['nom'] ?>"/></li>
+                <li><span>Parcours : </span><input id="parcours" type="text" name="parcours" value="<?php echo $_SESSION['user']['parcours'] ?>"/></li>
+                <li>
+                  <form action="#">
+                    <div class="file-field input-field">
+                      <div class="btn">
+                        <span>Photo</span>
+                        <input type="file">
+                      </div>
+                      <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                      </div>
+                    </div>
+                  </form>
+                </li>
+                <li class="row">
+                  <button class="waves-effect waves-light blue btn green" type="submit" name="action"><i class="material-icons">check</i></button>
+                </li>
+              </ul>
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <a class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
+          </div>
+        </div>
+        <div id="add_project" class="modal">
+          <?php
+          $sql = "SELECT * FROM type_projet ORDER BY id";
+          $pre = $pdo->prepare($sql);
+          $pre->execute();
+          $types = $pre->fetchAll(PDO::FETCH_ASSOC);?>
+
+          <div class="modal-content">
+            <h4 class="center-align">Ajout de projet</h4>
+            <form  action="php/add_project.php" method="post">
+              <ul>
+                <li><span>Titre : </span><input id="titre" type="text" name="titre" value=""/></li>
+                <li><span>Description : </span><input id="desc" type="text" name="desc" value=""/></li>
+                <li><div class="left">
+                  <label>Catégorie :</label>
+                  <select class="browser-default" id="type" name="type" >
+                    <?php foreach ($types as $type): ?>
+                      <option value="<?php echo $type['id'] ?>"><?php echo $type['nom'] ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+                <div class="right"><button class="waves-effect waves-light blue btn green" type="submit" name="action"><i class="material-icons">done</i></button>
+                </div>
+              </li>
+
+              </ul>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">ANNULER</a>
+          </div>
+        </div>
+
       </main>
 
       <footer class="page-footer grey darken-3">
         <?php require "php/footer.php" ?>
       </footer>
+
+      <div id="contact" class="modal">
+        <div class="modal-content black-text">
+          <h4 class="center-align">Contactez-nous</h4>
+          <div class="row">
+            <form class="col s12" action="php/send_mail.php">
+              <div class="center-align">
+                <?php
+                $sql = "SELECT nom, prenom, email FROM user ORDER BY nom;";
+                $pre = $pdo->prepare($sql);
+                $pre->execute();
+                $contacts = $pre->fetchAll(PDO::FETCH_ASSOC);?>
+
+                <h5>Qui contacter ?</h5>
+                <select class="browser-default" id="to" name="to">
+                  <?php foreach ($contacts as $contact): ?>
+                    <option value="<?php echo $contact['email'] ?>"><?php echo $contact['nom']." ".$contact['prenom'] ?></option>
+                  <?php endforeach; ?>
+                </select>
+
+                <div class="row center-align">
+                  <div class="input-field col s6 m6 l6">
+                    <i class="material-icons prefix">object</i>
+                    <input id="objet" type="text" class="validate">
+                    <label for="objet">Objet</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row center-align">
+                <h5>Vos coordonnées</h5>
+                <div class="input-field col s6 m4 l4">
+                  <i class="material-icons prefix">account_circle</i>
+                  <input id="first_name" type="text" class="validate">
+                  <label for="first_name">Prénom</label>
+                </div>
+                <div class="input-field col s6 m4 l4">
+                  <input id="last_name" type="text" class="validate">
+                  <label for="last_name">Nom</label>
+                </div>
+                <div class="input-field col s12 m4 l4">
+                  <i class="material-icons prefix">business</i>
+                  <input id="entreprise_name" type="text" class="validate">
+                  <label for="entreprise_name">Entreprise</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s6 m6 l6">
+                  <i class="material-icons prefix">email</i>
+                  <input id="from" type="email" class="validate">
+                  <label for="from">Email</label>
+                </div>
+                <div class="input-field col s6 m6 l6">
+                  <i class="material-icons prefix">phone</i>
+                  <input id="telephone" type="tel" class="validate">
+                  <label for="telephone">Téléphone</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12 m12 l12">
+                  <i class="material-icons prefix">mode_edit</i>
+                  <textarea id="textarea2" class="materialize-textarea" data-length="250"></textarea>
+                  <label for="textarea2">Message</label>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="modal-close waves-effect waves-light pulse blue btn" type="submit" name="action">
+                <i class="material-icons right">send</i>Envoyer</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
 
       <!--JavaScript at end of body for optimized loading-->
       <script src="js/jquery.js"></script>

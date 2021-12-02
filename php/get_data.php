@@ -24,4 +24,5 @@ $pre = $pdo->prepare($sql);
 $pre->execute();
 $team_type_project = $pre->fetchAll(PDO::FETCH_ASSOC);
 
+
  ?>
