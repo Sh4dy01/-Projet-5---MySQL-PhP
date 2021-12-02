@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 01 déc. 2021 à 18:46
+-- Généré le : jeu. 02 déc. 2021 à 00:15
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `carte` (
   `texte` text NOT NULL,
   `notation` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `carte`
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `projet` (
   `description` varchar(5000) NOT NULL,
   `carous` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `projet`
@@ -191,9 +191,9 @@ DROP TABLE IF EXISTS `type_projet`;
 CREATE TABLE IF NOT EXISTS `type_projet` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(50) NOT NULL,
-  `image` varchar(200) NOT NULL,
+  `image` varchar(200) NOT NULL DEFAULT 'img/no-image.jpg',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `type_projet`
@@ -225,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id_equipe` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user`
@@ -233,17 +233,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `privileges`, `active`, `email`, `password`, `prenom`, `nom`, `parcours`, `p_image`, `id_equipe`) VALUES
 (1, 1, 1, 'hmaestracci@gaming.tech', 'b7a6d580fa233088b213d9cd1cbb7e1145f7d64a', 'Hugo', 'MAESTRACCI', 'Etudiant en G-TECH 1 au Gaming Campus de Lyon Anciennement: - Serveur à l\'Instant Gourmand - 1 an en License informatique à TOULON - BAC STI2D option Système d\'Information et Numérique', 'img/hugo.jpg', 1),
-(11, 0, 1, 'yasuo@gmail.com', 'cc4615ca3741499bc268b1a9f3455ab39b6915d2', 'Yasuo', 'Hasagi', NULL, 'img/no-image.jpg', 0),
-(12, 0, 1, 'roronoazoro@gmail.com', 'b887d98df2ce8350a8a9bffae341afdaf101f65d', 'Zoro', 'Roronoa', NULL, 'img/no-image.jpg', 0),
-(13, 0, 1, 'cristianoronaldo@gmail.com', '03cab488874b5d75cc2f3aae3ee33ca334b8e414', 'Cristiano', 'Ronaldo', NULL, 'img/no-image.jpg', 0),
 (2, 1, 1, 'bmillan@gaming.tech', 'cf49f9d210982c802742be8bcfafbf4a3d1a205f', 'Baptiste', 'MILLAN', 'Etudiant en G-TECH 1 au Gaming Campus de Lyon Anciennement: - BAC S au Lycée Français de Séoul- DUT GMP à Rennes Je suis très content dans cette filière et même si je ne connaissais jusqu\'alors rien en programmation, j\'avance et tout le monde se serre les coudes', 'img/baz.jpg', 1),
-(7, 0, 1, 'pipartguilian@gmail.com', '2c786a1a9d6bef869a82238da944ab5a7b2ca8f9', 'Guilian', 'Pipart', NULL, 'img/no-image.jpg', 0),
-(8, 0, 1, 'macronemmanuel@gmail.com', '3010faf02ee25fcebd276caa0e4cca75f9b62645', 'Emmanuel', 'Macron', NULL, 'img/no-image.jpg', 0),
-(9, 0, 1, 'antoinediroberto@gmail.com', 'ab17e02697999202fb352ed031e0608067e7b5ce', 'Antoine', 'Di Roberto', NULL, 'img/no-image.jpg', 0),
-(10, 0, 1, 'michealjordan@gmail.com', '93cf42f8c467533d2dbe667288a6733e8b767174', 'Micheal', 'Jordan', NULL, 'img/no-image.jpg', 0),
-(3, 0, 1, 'jm@aulas.fr', '8cb2237d0679ca88db6464eac60da96345513964', 'aze', 'Aulas', '', 'img/no-image.jpg', 0),
-(14, 0, 1, 'mathymimie@gmail.com', '0bc9831696d08dcfe08789c093f556c4d60c914f', 'Mathy', 'Mimie', NULL, 'img/no-image.jpg', 0),
-(15, 0, 1, 'mandelanelson@gmail.com', 'e2520281bb49c638ff1a10ba80d7722c8af8350b', 'Mandela', 'Nelson', NULL, 'img/no-image.jpg', 0);
+(3, 0, 1, 'jm@aulas.fr', '8cb2237d0679ca88db6464eac60da96345513964', 'Jean-Michel', 'Aulas', 'Nulle/20', 'img/no-image.jpg', 0);
 
 -- --------------------------------------------------------
 

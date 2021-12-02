@@ -25,7 +25,7 @@
     $data = $pre->fetchAll(PDO::FETCH_ASSOC);
 
     if (empty($data)) {
-      $sql = "INSERT INTO user(email,password,prenom,nom) VALUES(UPPER(:email),SHA1(:password),:prenom,:nom)";
+      $sql = "INSERT INTO user(email,password,prenom,nom) VALUES(:email,SHA1(:password),:prenom,UPPER(:nom))";
       $dataBinded=array(
           ':email'   => $_POST['email'],
           ':password'=> $_POST['password'],
